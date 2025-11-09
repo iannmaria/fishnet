@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            {% if fish.image %}
+            <img src="{{ fish.image.url }}" class="img-fluid rounded" alt="{{ fish.name }}">
+            {% else %}
+            <div class="bg-light d-flex align-items-center justify-content-center rounded" style="height: 400px;">
+                <span class="text-muted">No Image Available</span>
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <h2>{{ fish.name }}</h2>
+            <p class="text-muted">Category: {{ fish.category.name }}</p>
+            <h4 class="text-primary">₹{{ fish.price_per_kg|floatformat:2 }} / kg</h4>
+            <p><strong>Stock Available:</strong> {{ fish.stock }} kg</p>
+            
+            {% if request.user.is_authenticated and request.user.role == 'customer' %}
+                {% if fish.stock > 0 %}
+                <form method="POST" action="{% url 'add_to_cart' fish.id %}" class="mt-4">
+                    {% csrf_token %}
+                    <div class="input-group mb-3" style="max-width: 200px;">
+                        <input type="number" name="quantity" class="form-control" value="1" min="1" max="{{ fish.stock }}" required>
+                        <span class="input-group-text">kg</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg">Add to Cart</button>
+                </form>
+                {% else %}
+                <button class="btn btn-secondary btn-lg" disabled>Out of Stock</button>
+                {% endif %}
+            {% elif not request.user.is_authenticated %}
+                <a href="{% url 'login' %}" class="btn btn-primary btn-lg mt-4">Login to Buy</a>
+            {% endif %}
+            
+            <div class="mt-4">
+                <a href="{% url 'inventory_list' %}" class="btn btn-outline-secondary">Back to Inventory</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

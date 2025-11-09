@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h3>Your Shopping Cart</h3>
+    
+    {% if items %}
+    <div class="card mt-3">
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Fish</th>
+                        <th>Price/kg</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in cart_data %}
+                    <tr>
+                        <td>
+                            <strong>{{ data.item.fish_item.name }}</strong><br>
+                            <small class="text-muted">{{ data.item.fish_item.category.name }}</small>
+                        </td>
+                        <td>₹{{ data.item.fish_item.price_per_kg|floatformat:2 }}</td>
+                        <td>
+                            <form method="POST" action="{% url 'update_cart' data.item.id %}" id="form-{{ data.item.id }}">
+                                {% csrf_token %}
+                                <div class="input-group" style="width: 120px;">
+                                    <input type="number" name="quantity" class="form-control form-control-sm" 
+                                           value="{{ data.item.quantity }}" min="1" max="{{ data.item.fish_item.stock }}" required>
+                                    <span class="input-group-text">kg</span>
+                                </div>
+                            </form>
+                        </td>
+                        <td>₹{{ data.subtotal|floatformat:2 }}</td>
+                        <td>
+                            <button type="submit" form="form-{{ data.item.id }}" class="btn btn-sm btn-outline-primary">Update</button>
+                            <a href="{% url 'remove_from_cart' data.item.id %}" 
+                               class="btn btn-sm btn-outline-danger"
+                               onclick="return confirm('Remove {{ data.item.fish_item.name }} from cart?')">Remove</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="3" class="text-end">Total:</th>
+                        <th>₹{{ total|floatformat:2 }}</th>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    
+    <div class="mt-4 d-flex justify-content-between">
+        <a href="{% url 'inventory_list' %}" class="btn btn-secondary">Continue Shopping</a>
+        <form method="POST" action="{% url 'checkout' %}" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-lg">Checkout</button>
+        </form>
+    </div>
+    {% else %}
+    <div class="alert alert-info mt-3">
+        <p>Your cart is empty.</p>
+        <a href="{% url 'inventory_list' %}" class="btn btn-primary">Browse Fish</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

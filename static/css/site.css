@@ -1,0 +1,38 @@
+/* General layout */
+body {
+  padding-bottom: 40px;
+  background-color: #f8f9fa; /* subtle background tone */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Cards */
+.card {
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Custom Jumbotron (Bootstrap 5 replacement) */
+.jumbotron {
+  background-color: #e9f5ff;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+/* Buttons and links */
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

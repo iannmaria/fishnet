@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  body {
+    background: linear-gradient(135deg, #e8f1ff, #cfe4ff);
+    font-family: "Segoe UI", sans-serif;
+  }
+
+  .signup-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 85vh;
+  }
+
+  .signup-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 45px 50px;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .signup-card h2 {
+    text-align: center;
+    font-weight: 700;
+    color: #0d47a1;
+    margin-bottom: 30px;
+    letter-spacing: -0.5px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+  }
+
+  input,
+  select {
+    border-radius: 8px;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    width: 100%;
+    transition: all 0.2s;
+  }
+
+  input:focus,
+  select:focus {
+    border-color: #1565c0;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.2);
+  }
+
+  .btn-signup {
+    background-color: #1565c0;
+    color: white;
+    font-weight: 600;
+    border: none;
+    padding: 10px 0;
+    border-radius: 8px;
+    transition: background 0.3s;
+  }
+
+  .btn-signup:hover {
+    background-color: #0d47a1;
+  }
+
+  .errorlist,
+  .text-danger {
+    color: #d32f2f;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+
+  .bottom-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 15px;
+  }
+
+  .bottom-text a {
+    color: #1565c0;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .bottom-text a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="signup-wrapper">
+  <div class="signup-card">
+    <h2>Create Account</h2>
+    <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+      <div class="form-group">
+        <label>{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+          {% for error in field.errors %}
+          <div class="text-danger">{{ error }}</div>
+          {% endfor %}
+        {% endif %}
+      </div>
+      {% endfor %}
+      <button type="submit" class="btn-signup">Sign Up</button>
+    </form>
+    <div class="bottom-text">
+      Already have an account? <a href="{% url 'login' %}">Login</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

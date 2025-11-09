@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fish Market - FishNet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #f8fbff, #dce9ff);
+            font-family: 'Inter', sans-serif;
+            color: #222;
+        }
+        .navbar {
+            background: #0d6efd;
+        }
+        .fish-card {
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: all 0.2s ease;
+        }
+        .fish-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        }
+        .fish-img {
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            height: 200px;
+            object-fit: cover;
+        }
+        .logout-btn {
+            background: white;
+            color: #0d6efd;
+            border-radius: 25px;
+            font-weight: 600;
+            padding: 6px 18px;
+            transition: all 0.2s ease;
+        }
+        .logout-btn:hover {
+            background: #eaf1ff;
+            color: #084298;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark px-3">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <a class="navbar-brand fw-bold text-white" href="#">FishNet Market</a>
+        <a href="{% url 'logout' %}" class="logout-btn text-decoration-none">Logout</a>
+    </div>
+</nav>
+
+<div class="container py-5">
+    <h2 class="fw-bold text-center mb-5 text-primary">Available Fresh Fish</h2>
+
+    {% if fish_items %}
+        <div class="row g-4">
+            {% for fish in fish_items %}
+            <div class="col-md-3">
+                <div class="card fish-card">
+                    {% if fish.image %}
+                        <img src="{{ fish.image.url }}" class="fish-img w-100">
+                    {% else %}
+                        <img src="https://via.placeholder.com/300x200.png?text=No+Image" class="fish-img w-100">
+                    {% endif %}
+                    <div class="card-body text-center">
+                        <h5 class="fw-semibold">{{ fish.name }}</h5>
+                        <p class="text-muted">₹{{ fish.price_per_kg }} / kg</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center text-muted mt-5">
+            <h5>No fish available yet.</h5>
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

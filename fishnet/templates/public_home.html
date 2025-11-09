@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="jumbotron py-5">
+  <h1>Welcome to FishNet</h1>
+  <p class="lead">A Fishermen & Fish Management System.</p>
+  <p>
+    <a href="{% url 'inventory_list' %}" class="btn btn-primary">View Inventory</a>
+    <a href="{% url 'login' %}" class="btn btn-outline-secondary">Login</a>
+  </p>
+</div>
+{% endblock %}

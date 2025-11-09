@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .dashboard {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: linear-gradient(135deg, #e8f0fe, #c5cae9);
+    border-radius: 16px;
+    padding: 40px;
+  }
+  h2 {
+    color: #1565c0;
+    font-weight: 700;
+  }
+  p {
+    color: #333;
+    font-size: 1.1rem;
+  }
+</style>
+
+<div class="dashboard">
+  <h2>Welcome Staff, {{ user.username }}</h2>
+  <p>Manage daily operations, orders, and system updates efficiently.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% block header %}{% endblock %}
+
+{% block extra_head %}
+<style>
+  /* Remove global navbar/header */
+  header, nav, .navbar {
+    display: none !important;
+  }
+
+  body {
+    background: linear-gradient(135deg, #e3f2fd, #ffffff);
+    color: #0d47a1;
+    font-family: "Segoe UI", "SF Pro Display", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+  }
+
+  .intro-wrapper {
+    background: #ffffffd9;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(13, 71, 161, 0.1);
+    padding: 60px 50px;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    animation: fadeIn 1s ease;
+  }
+
+  .brand {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #0d47a1;
+    margin-bottom: 10px;
+  }
+
+  .tagline {
+    font-size: 1.1rem;
+    color: #1565c0;
+    margin-bottom: 15px;
+  }
+
+  .intro-text {
+    color: #0d47a1cc;
+    margin-bottom: 35px;
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .btn {
+    border: none;
+    border-radius: 50px;
+    padding: 14px 0;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary {
+    background: #0d47a1;
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    background: #1565c0;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: #0d47a1;
+    border: 2px solid #0d47a1;
+  }
+
+  .btn-secondary:hover {
+    background: #0d47a1;
+    color: #fff;
+  }
+
+  .link {
+    color: #1565c0;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-top: 25px;
+    display: inline-block;
+  }
+
+  .link:hover {
+    color: #0d47a1;
+  }
+
+  .footer-note {
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: #1565c0;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="intro-wrapper">
+  <div class="brand">FishNet</div>
+  <div class="tagline">Empowering Fishermen & Traders</div>
+  <div class="intro-text">
+    Manage your catches, trade seamlessly, and grow your network all in one powerful, connected platform built for the ocean community.
+  </div>
+
+  <div class="button-group">
+    <a href="{% url 'login' %}" class="btn btn-primary">Get Started</a>
+    <a href="{% url 'signup' %}" class="btn btn-secondary">Join Now</a>
+  </div>
+
+  <a href="{% url 'password_reset' %}" class="link">Forgot your password?</a>
+  <div class="footer-note">© 2025 FishNet.</div>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .dashboard {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    border-radius: 16px;
+    padding: 40px;
+  }
+  h2 {
+    color: #0d47a1;
+    font-weight: 700;
+  }
+  p {
+    color: #444;
+    font-size: 1.1rem;
+  }
+</style>
+
+<div class="dashboard">
+  <h2>Welcome Admin, {{ user.username }}</h2>
+  <p>You have full control over system management and monitoring.</p>
+</div>
+{% endblock %}
